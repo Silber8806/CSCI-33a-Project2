@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     var define_channels_btn = document.querySelector('#define_channel');
     var channel_list = document.querySelector('#channel_listing')
     var channel_prototype = document.querySelector('#channel_prototype')
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
     add_channels_btn.onclick = function() {
         add_channels_btn.style.display = 'none';
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 new_channel = channel_prototype.cloneNode(true);
                 new_channel.innerHTML = new_channel.innerHTML + this.value;
                 channel_list.append(new_channel);
-                new_channel.style.display = 'inline';
+                new_channel.style.display = 'block';
             }
             event.preventDefault();
         }
