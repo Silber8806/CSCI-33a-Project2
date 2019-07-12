@@ -1,18 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 
-    const enter_key = 13;
-    var add_channels_btn = document.querySelector('#add_channel');
-    var define_channels_btn = document.querySelector('#define_channel');
-    var channel_list = document.querySelector('#channel_listing')
-    var channel_prototype = document.querySelector('#channel_prototype')
-    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-
-    function add_channel(name) {
-        new_channel = channel_prototype.cloneNode(true);
-        new_channel.innerHTML = new_channel.innerHTML + name;
-        channel_list.append(new_channel);
-        new_channel.style.display = 'block';
-        return
+    function sign_up_user() {
+        return 0
     }
 
     function set_up_channel_ui() {
@@ -51,6 +40,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
+    function add_channel(name) {
+        new_channel = channel_prototype.cloneNode(true);
+        new_channel.innerHTML = new_channel.innerHTML + name;
+        channel_list.append(new_channel);
+        new_channel.style.display = 'block';
+        return 0
+    }
+
+    const enter_key = 13;
+    var add_channels_btn = document.querySelector('#add_channel');
+    var define_channels_btn = document.querySelector('#define_channel');
+    var channel_list = document.querySelector('#channel_listing')
+    var channel_prototype = document.querySelector('#channel_prototype')
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
     socket.on('connect', () => {
 
         var xhttp = new XMLHttpRequest();
@@ -66,6 +70,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         xhttp.open("GET", "/channels", true);
         xhttp.send();
 
-        set_up_channel_ui()
+        sign_up_user();
+        set_up_channel_ui();
     });
 });
