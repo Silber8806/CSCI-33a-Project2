@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_socketio import SocketIO, emit
 
 app_folder = os.path.dirname(os.path.abspath(__file__))  # adjust as appropriate
@@ -29,6 +29,11 @@ def page_not_found(e):
 @app.route("/")
 def index():
     return render_template('index.html')
+
+
+@app.route("/channels")
+def get_all_channels():
+    return jsonify(hipster_channels)
 
 
 @socketio.on("submit channel")

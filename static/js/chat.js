@@ -15,7 +15,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return
     }
 
-    socket.on('connect', () => {
+    function set_up_channel_ui() {
+        socket.on('announce channel', data => {
+            let channel_name = data.name;
+            add_channel(channel_name);
+        });
+
         add_channels_btn.onclick = function() {
             add_channels_btn.style.display = 'none';
             define_channels_btn.value = '';
@@ -44,10 +49,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
         define_channels_btn.onsubmit = function(event) {
             event.preventDefault();
         }
+    }
 
-        socket.on('announce channel', data => {
-            channel_name = data.name;
-            add_channel(channel_name);
-        });
+    socket.on('connect', () => {
+
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                let data = JSON.parse(this.responseText);
+                data.forEach(function(channel) {
+                    add_channel(channel);
+                });
+            }
+        };
+        xhttp.open("GET", "/channels", true);
+        xhttp.send();
+
+        set_up_channel_ui()
     });
 });
