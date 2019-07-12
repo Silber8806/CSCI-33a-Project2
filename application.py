@@ -12,6 +12,7 @@ app = Flask(__name__, static_url_path='/static')
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 socketio = SocketIO(app)
 
+hipster_channels = []
 
 @app.errorhandler(500)
 def page_not_found(e):
@@ -31,6 +32,7 @@ def index():
 
 
 @socketio.on("submit channel")
-def vote(data):
+def add_channel(data):
     name = data["name"]
-    emit("announce channel", {"name": name}, broadcast=True)
+    hipster_channels.append(name)
+    emit("announce channel", {"name": name}, broadcast=True,include_self=False)

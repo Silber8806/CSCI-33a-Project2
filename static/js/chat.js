@@ -7,35 +7,47 @@ document.addEventListener('DOMContentLoaded', (event) => {
     var channel_prototype = document.querySelector('#channel_prototype')
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
-    add_channels_btn.onclick = function() {
-        add_channels_btn.style.display = 'none';
-        define_channels_btn.value = '';
-        define_channels_btn.style.display = 'inline';
-        define_channels_btn.focus();
+    function add_channel(name) {
+        new_channel = channel_prototype.cloneNode(true);
+        new_channel.innerHTML = new_channel.innerHTML + name;
+        channel_list.append(new_channel);
+        new_channel.style.display = 'block';
+        return
     }
 
-    define_channels_btn.onkeypress = function(event) {
+    socket.on('connect', () => {
+        add_channels_btn.onclick = function() {
+            add_channels_btn.style.display = 'none';
+            define_channels_btn.value = '';
+            define_channels_btn.style.display = 'inline';
+            define_channels_btn.focus();
+        }
 
-        if (event.keyCode === enter_key) {
-            let current_value =  this.value;
-            if (! /\s/.test(current_value)) {
-                add_channels_btn.style.display = 'inline';
-                define_channels_btn.style.display = 'none';
-                new_channel = channel_prototype.cloneNode(true);
-                new_channel.innerHTML = new_channel.innerHTML + this.value;
-                channel_list.append(new_channel);
-                new_channel.style.display = 'block';
+        define_channels_btn.onkeypress = function(event) {
+            if (event.keyCode === enter_key) {
+                let channel_name =  this.value;
+                if (! /\s/.test(channel_name) && channel_name.length !== 0) {
+                    add_channels_btn.style.display = 'inline';
+                    define_channels_btn.style.display = 'none';
+                    add_channel(channel_name);
+                    socket.emit('submit channel', {'name': channel_name})
+                }
+                event.preventDefault();
             }
+        }
+
+        define_channels_btn.onblur = function(event) {
+            add_channels_btn.style.display = 'inline';
+            define_channels_btn.style.display = 'none';
+        }
+
+        define_channels_btn.onsubmit = function(event) {
             event.preventDefault();
         }
-    }
 
-    define_channels_btn.onblur = function(event) {
-        add_channels_btn.style.display = 'inline';
-        define_channels_btn.style.display = 'none';
-    }
-
-    define_channel_btn.onsubmit = function(event) {
-        event.preventDefault();
-    }
+        socket.on('announce channel', data => {
+            channel_name = data.name;
+            add_channel(channel_name);
+        });
+    });
 });
