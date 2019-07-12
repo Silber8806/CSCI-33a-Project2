@@ -1,37 +1,65 @@
-#brand_box {
-  width: 195px;
-  height: 73px;
-  margin: 0% 25%; }
+/*
+    Variables
+*/
+/*
+    Classes
+*/
+#brand_box, #channel_bar, #channel_bar #channel_listing {
+  width: 200px;
+  background-color: #3F0E40; }
 
-#brand {
-  font-size: 18px;
-  font-style: italic;
-  border-bottom: 2px solid maroon;
-  color: yellow; }
+/*
+    CSS
+*/
+#brand_box {
+  border-right: 2px solid lightgrey;
+  height: 40px;
+  border-right: #FFFF 1px solid; }
+  #brand_box #brand {
+    font-size: 20px;
+    font-style: italic;
+    border-bottom: 2px solid maroon;
+    color: #b29fb3; }
 
 #channel_bar {
-  width: 200px;
+  font: 18px;
+  border-right: 2px solid lightgrey;
   position: fixed;
   height: 100%;
   z-index: 1;
   top: 0;
-  left: 0;
-  background-color: brown; }
-
-#channel_listing {
-  width: 200px;
-  border-right: 2px solid blue;
-  height: calc(100% - 80px);
-  color: yellow; }
-  #channel_listing li {
-    list-style-type: none; }
+  left: 0; }
+  #channel_bar #channel_listing {
+    border-right: 2px solid lightgrey;
+    height: calc(100% - $top_bar_height - 5px);
+    color: #b29fb3; }
+  #channel_bar span {
+    padding-left: 20px; }
+  #channel_bar .hip_channel {
+    margin-left: 20px;
+    background-color: #3F0E40;
+    color: #b29fb3;
+    border: none; }
+  #channel_bar #add_channel {
+    background-color: #3F0E40;
+    color: #b29fb3;
+    border: none; }
+  #channel_bar #define_channel {
+    width: 150px;
+    background-color: #3F0E40;
+    border: none;
+    border-color: 1px solid lightblue;
+    color: #FFFFFF;
+    display: none; }
+  #channel_bar #channel_prototype {
+    display: none; }
 
 #top_bar {
-  margin-left: 200px;
-  height: 75px;
-  background-color: brown;
-  color: yellow;
-  font-size: 18px;
-  border-bottom: 2px solid blue; }
+  font: 18px;
+  margin-left: 200 px;
+  background-color: #FFFFFF;
+  color: #b29fb3;
+  border-bottom: 2px solid lightgrey;
+  height: 40px; }
 
 /*# sourceMappingURL=styles.css.map */

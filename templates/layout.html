@@ -8,48 +8,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='js/chat.js') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{{ url_for('static',filename='js/chat.js') }}"></script>
 </head>
 
 <body>
 <div id="main_app">
 
     {% block topbar %}
-        <div id="top_bar">
+    <div id="top_bar">
 
-        </div>
+    </div>
     {% endblock %}
 
     {% block sidebar %}
-    <div id="channel_bar">
+    <nav id="channel_bar">
         <div id="brand_box">
-            <a href="#" id="brand">Hipster Chat</a>
+            <span id="brand">Hipster Chat</span>
         </div>
         <div id="channel_listing">
-             <p> Channels </p>
-             <ul id="channels">
-                <li>
-                    I am a channel
-                </li>
-                <li>
-                    <form>
-                        <input type="text">
-                    </form>
-                </li>
-             </ul>
+            <span class="channel_header"> Channels </span>
+            <div id="channels">
+                <button id="channel_prototype" class="hip_channel"><i class="fa fa-microphone" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
-    </div>
+        <button id="add_channel" class="hip_channel"><i class="fa fa-plus-circle" aria-hidden="true"></i> add
+            channel
+        </button>
+        <form>
+            <input id="define_channel" class="hip_channel" name="new_channel" minlength="1" maxlength="15">
+        </form>
+    </nav>
     {% endblock %}
 
     <div class="container">
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
     </div>
 
 </div>
+<script src="{{ url_for('static', filename='js/chat.js') }}">
 </body>
 </html>
