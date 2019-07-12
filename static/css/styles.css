@@ -56,10 +56,21 @@
 
 #top_bar {
   font: 18px;
-  margin-left: 200 px;
+  margin-left: 200px;
   background-color: #FFFFFF;
   color: #b29fb3;
   border-bottom: 2px solid lightgrey;
   height: 40px; }
+  #top_bar #current_logged_in_user {
+    font-size: 20px;
+    float: right;
+    margin-right: 20px; }
+
+#chatroom {
+  font: 18px;
+  margin-left: 200px; }
+
+#avatar {
+  width: 100%; }
 
 /*# sourceMappingURL=styles.css.map */

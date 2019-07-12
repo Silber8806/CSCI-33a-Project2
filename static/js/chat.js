@@ -1,6 +1,24 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 
+    function validate_name_has_no_spaces(name) {
+        return ( ! /\s/.test(name) && name.length !== 0 )
+    }
+
     function sign_up_user() {
+        if (localStorage.getItem("username") === null) {
+            document.querySelector("#modal_login_avatar_btn").onclick = function(){
+                let new_username = document.querySelector("#modal_login_avatar_name").value;
+                console.log(new_username);
+                if (validate_name_has_no_spaces(new_username)) {
+                    localStorage.setItem('username',new_username);
+                    $('#modal_login_avatar').modal('hide');
+                }
+            };
+            $("#modal_login_avatar").modal({backdrop: 'static'});
+        }
+
+        let username = localStorage.getItem("username");
+        document.getElementById("current_logged_in_user").innerHTML = username;
         return 0
     }
 
@@ -20,7 +38,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         define_channels_btn.onkeypress = function(event) {
             if (event.keyCode === enter_key) {
                 let channel_name =  this.value;
-                if (! /\s/.test(channel_name) && channel_name.length !== 0) {
+                if (validate_name_has_no_spaces(channel_name)) {
                     add_channels_btn.style.display = 'inline';
                     define_channels_btn.style.display = 'none';
                     add_channel(channel_name);

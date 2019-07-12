@@ -94,10 +94,25 @@ $top_bar_height: 40;
 
 #top_bar {
     @include channel_font;
-    margin-left: $channel_width px;
+    margin-left: $channel_width + px;
     background-color: #FFFFFF;
     color: $channel_text_color;
     border-bottom: 2px solid lightgrey;
     height: $top_bar_height + px;
+
+    #current_logged_in_user {
+        font-size: 20px;
+        float: right;
+        margin-right: 20px;
+    }
+}
+
+#chatroom {
+    @include channel_font;
+    margin-left: $channel_width + px;
+}
+
+#avatar {
+    width: 100%;
 }
 
