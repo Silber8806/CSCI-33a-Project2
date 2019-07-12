@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/chat.js') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
@@ -16,10 +17,39 @@
 
 <body>
 <div id="main_app">
-    {% block sidebar %}
+
+    {% block topbar %}
+        <div id="top_bar">
+
+        </div>
     {% endblock %}
+
+    {% block sidebar %}
+    <div id="channel_bar">
+        <div id="brand_box">
+            <a href="#" id="brand">Hipster Chat</a>
+        </div>
+        <div id="channel_listing">
+             <p> Channels </p>
+             <ul id="channels">
+                <li>
+                    I am a channel
+                </li>
+                <li>
+                    <form>
+                        <input type="text">
+                    </form>
+                </li>
+             </ul>
+        </div>
+    </div>
+    {% endblock %}
+
+    <div class="container">
     {% block content %}
     {% endblock %}
+    </div>
+
 </div>
 </body>
 </html>

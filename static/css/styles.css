@@ -1,0 +1,37 @@
+#brand_box {
+  width: 195px;
+  height: 73px;
+  margin: 0% 25%; }
+
+#brand {
+  font-size: 18px;
+  font-style: italic;
+  border-bottom: 2px solid maroon;
+  color: yellow; }
+
+#channel_bar {
+  width: 200px;
+  position: fixed;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: brown; }
+
+#channel_listing {
+  width: 200px;
+  border-right: 2px solid blue;
+  height: calc(100% - 80px);
+  color: yellow; }
+  #channel_listing li {
+    list-style-type: none; }
+
+#top_bar {
+  margin-left: 200px;
+  height: 75px;
+  background-color: brown;
+  color: yellow;
+  font-size: 18px;
+  border-bottom: 2px solid blue; }
+
+/*# sourceMappingURL=styles.css.map */
