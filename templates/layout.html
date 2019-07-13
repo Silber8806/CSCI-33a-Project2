@@ -60,9 +60,9 @@
         {% block content %}
         <div id="message_board">
             <div id="message_prototype" class="chat_message row">
-                <div class="col-sm-12">
                     <div class="message_header">
-                        <span class="message_username">Chris - </span>
+                        <span class="message_username">Chris </span>
+                        <span> - </span>
                         <span class="message_time"> July 4th, 2019</span>
                     </div>
                     <div class="message_body">
@@ -70,19 +70,12 @@
                             <img class="message_avatar" src="{{ url_for('static',filename='images/cool_cat.jpg') }}" alt="chat_avatar">
                         </div>
                         <div class="message_content">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Mauris ultrices eros in cursus turpis massa. Ultrices gravida
-                            dictum fusce ut placerat. Lacus sed turpis tincidunt id aliquet risus feugiat. Egestas
-                            tellus rutrum tellus pellentesque eu tincidunt. Arcu felis bibendum ut tristique et egestas
-                            quis ipsum suspendisse. Mauris cursus mattis molestie a iaculis. Enim nulla aliquet
-                            porttitor lacus luctus accumsan tortor posuere ac. Imperdiet dui accumsan sit amet nulla
-                            facilisi morbi. Eget dolor morbi non arcu risus quis varius quam. Purus viverra accumsan in
-                            nisl nisi. Neque aliquam vestibulum morbi blandit cursus risus. Tellus in metus vulputate eu
-                            scelerisque. Lectus quam id leo in vitae turpis massa sed elementum. Leo vel orci porta non
-                            pulvinar neque laoreet suspendisse interdum.
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                                labore et dolore magna aliqua.
+                            </p>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
         {% endblock %}

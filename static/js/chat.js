@@ -16,11 +16,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             };
             $("#modal_login_avatar").modal({backdrop: 'static'});
         }
+        return 0
+    }
 
+    function set_active_user() {
         let username = localStorage.getItem("username");
         document.getElementById("current_logged_in_user").innerHTML = username;
-
-        var active_user=username
+        current_active_user = username
         return 0
     }
 
@@ -68,10 +70,18 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return 0
     }
 
-    function add_message(){
+    function add_message(username, content){
+
+        let date_options = { year: 'numeric', month: 'short', day: 'numeric' };
+        let message_date = new Date().toLocaleDateString("en-US",date_options);
+
         new_message = message_prototype.cloneNode(true);
+        new_message.querySelector('.message_content').innerHTML = content;
+        new_message.querySelector('.message_username').innerHTML = username;
+        new_message.querySelector('.message_time').innerHTML = message_date;
         message_board.append(new_message);
         new_message.style.display = 'block';
+        last_message_username=username;
     }
 
     function set_up_message_box () {
@@ -80,12 +90,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 let current_message =  this.value;
                 this.value = '';
                 event.preventDefault();
-                add_message();
+                add_message(current_active_user,current_message);
             }
         }
     }
 
     const enter_key = 13;
+    var current_active_user = 'None';
+    var last_message_username = 'None';
     var add_channels_btn = document.querySelector('#add_channel');
     var define_channels_btn = document.querySelector('#define_channel');
     var channel_list = document.querySelector('#channel_listing');
@@ -111,6 +123,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         xhttp.send();
 
         sign_up_user();
+        set_active_user();
         set_up_channel_ui();
         set_up_message_box();
     });
