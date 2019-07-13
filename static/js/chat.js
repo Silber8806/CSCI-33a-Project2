@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (localStorage.getItem("username") === null) {
             document.querySelector("#modal_login_avatar_btn").onclick = function(){
                 let new_username = document.querySelector("#modal_login_avatar_name").value;
-                console.log(new_username);
                 if (validate_name_has_no_spaces(new_username)) {
                     localStorage.setItem('username',new_username);
                     $('#modal_login_avatar').modal('hide');
@@ -70,27 +69,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return 0
     }
 
-    function add_message(username, content){
-
-        let date_options = { year: 'numeric', month: 'short', day: 'numeric' };
-        let message_date = new Date().toLocaleDateString("en-US",date_options);
-
+    function add_message(username, time, content){
         new_message = message_prototype.cloneNode(true);
         new_message.querySelector('.message_content').innerHTML = content;
         new_message.querySelector('.message_username').innerHTML = username;
-        new_message.querySelector('.message_time').innerHTML = message_date;
+        new_message.querySelector('.message_time').innerHTML = time;
         message_board.append(new_message);
         new_message.style.display = 'block';
         last_message_username=username;
+        return 0
+    }
+
+    function send_message(username, time, content) {
+        let message_data = {'username': username,'time': time,'content':content}
+        socket.emit('submit message', message_data)
+        return 0
     }
 
     function set_up_message_box () {
+
+        socket.on('announce message', data => {
+            add_message(data.username, data.time, data.content);
+        });
+
         message_box.onkeypress = function(event) {
          if (event.keyCode === enter_key) {
                 let current_message =  this.value;
                 this.value = '';
                 event.preventDefault();
-                add_message(current_active_user,current_message);
+                let date_options = { year: 'numeric', month: 'short', day: 'numeric' };
+                let current_date = new Date().toLocaleDateString("en-US",date_options);
+                add_message(current_active_user,current_date,current_message);
+                send_message(current_active_user, current_date, current_message);
+                return 0
             }
         }
     }
@@ -98,6 +109,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const enter_key = 13;
     var current_active_user = 'None';
     var last_message_username = 'None';
+    var current_active_channel = 'help';
+
     var add_channels_btn = document.querySelector('#add_channel');
     var define_channels_btn = document.querySelector('#define_channel');
     var channel_list = document.querySelector('#channel_listing');
