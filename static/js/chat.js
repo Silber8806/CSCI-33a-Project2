@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         let username = localStorage.getItem("username");
         document.getElementById("current_logged_in_user").innerHTML = username;
+
+        var active_user=username
         return 0
     }
 
@@ -66,11 +68,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return 0
     }
 
+    function add_message(){
+        new_message = message_prototype.cloneNode(true);
+        message_board.append(new_message);
+        new_message.style.display = 'block';
+    }
+
+    function set_up_message_box () {
+        message_box.onkeypress = function(event) {
+         if (event.keyCode === enter_key) {
+                let current_message =  this.value;
+                this.value = '';
+                event.preventDefault();
+                add_message();
+            }
+        }
+    }
+
     const enter_key = 13;
     var add_channels_btn = document.querySelector('#add_channel');
     var define_channels_btn = document.querySelector('#define_channel');
-    var channel_list = document.querySelector('#channel_listing')
-    var channel_prototype = document.querySelector('#channel_prototype')
+    var channel_list = document.querySelector('#channel_listing');
+    var message_box = document.querySelector('#hipster_chat_message');
+    var message_board = document.querySelector('#message_board');
+    var channel_prototype = document.querySelector('#channel_prototype');
+    var message_prototype = document.querySelector('#message_prototype');
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
     socket.on('connect', () => {
@@ -90,5 +112,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         sign_up_user();
         set_up_channel_ui();
+        set_up_message_box();
     });
 });

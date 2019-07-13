@@ -107,12 +107,77 @@ $top_bar_height: 40;
     }
 }
 
+#chat_bar {
+    position:fixed;
+    bottom:20px;
+    left: $channel_width + 5 + px;
+    right:0px;
+    height:50px;
+    margin-bottom:0px;
+}
+
 #chatroom {
     @include channel_font;
     margin-left: $channel_width + px;
+}
+
+.chat_message {
+    @include channel_font;
+    margin: 20px 0px;
+    width: 80%;
 }
 
 #avatar {
     width: 100%;
 }
 
+.message_header {
+    margin-left: 100px;
+
+    .message_username {
+        font-weight: bolder;
+    }
+}
+
+.message_body {
+    display: flex;
+
+    .message_gutter {
+        flex: 0 0 100px;
+    }
+
+    .message_avatar {
+        margin-top: 8px;
+        width: 80px;
+        border-radius: 5%;
+    }
+}
+
+#message_prototype {
+    display: none;
+}
+
+#hipster_chat_message {
+    margin: 0% 2.5%;
+    width: 95%;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 750px) {
+    .message_body {
+        display: block;
+        width: 80%;
+    }
+
+    .message_header {
+        margin-left: 22px;
+        width: 80%;
+        text-align: center;
+    }
+
+    .message_avatar {
+        margin: 9px 8px 1px 0px ;
+        width: 80px;
+        float: left;
+    }
+}
