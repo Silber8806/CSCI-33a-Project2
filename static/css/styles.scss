@@ -111,7 +111,7 @@ $top_bar_height: 40;
 }
 
 #message_prototype {
-    display: none;
+    display: block;
 }
 
 #chatroom {
@@ -120,14 +120,9 @@ $top_bar_height: 40;
     margin-top: $top_bar_height + px;
     margin-bottom: 100px;
 
-   #message_board {
-        width: 500px;
-   }
-
     .chat_message {
         @include channel_font;
         margin: 20px 0px;
-        width: calc(100% - #{$channel_width}px);
 
         .message_header {
             margin-left: 100px;
@@ -139,6 +134,7 @@ $top_bar_height: 40;
 
         .message_body {
             display: flex;
+            width: 80%;
 
             .message_gutter {
                 flex: 0 0 100px;

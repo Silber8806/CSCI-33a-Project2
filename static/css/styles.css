@@ -70,25 +70,23 @@
     float: right; }
 
 #message_prototype {
-  display: none; }
+  display: block; }
 
 #chatroom {
   font: 18px;
   margin-left: 200px;
   margin-top: 40px;
   margin-bottom: 100px; }
-  #chatroom #message_board {
-    width: 500px; }
   #chatroom .chat_message {
     font: 18px;
-    margin: 20px 0px;
-    width: calc(100% - 200px); }
+    margin: 20px 0px; }
     #chatroom .chat_message .message_header {
       margin-left: 100px; }
       #chatroom .chat_message .message_header .message_username {
         font-weight: bolder; }
     #chatroom .chat_message .message_body {
-      display: flex; }
+      display: flex;
+      width: 80%; }
       #chatroom .chat_message .message_body .message_gutter {
         flex: 0 0 100px; }
       #chatroom .chat_message .message_body .message_avatar {

@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         new_message.querySelector('.message_username').innerHTML = username;
         new_message.querySelector('.message_time').innerHTML = time;
         message_board.append(new_message);
-        new_message.style.display = 'block';
+        new_message.style.display = 'inline';
         last_message_username=username;
         return 0
     }
