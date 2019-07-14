@@ -66,6 +66,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         new_channel.innerHTML = new_channel.innerHTML + name;
         channel_list.append(new_channel);
         new_channel.style.display = 'block';
+
+        new_channel.onclick = function() {
+            current_active_channel = name;
+            let listed_channels = document.getElementsByClassName('channel')
+
+            let i;
+            for (i = 0; i < listed_channels.length; i++) {
+              listed_channels[i].style.color = "#b29fb3";
+            }
+
+            this.style.color = "#FFFFFF";
+
+            alert(current_active_channel)
+        }
         return 0
     }
 
