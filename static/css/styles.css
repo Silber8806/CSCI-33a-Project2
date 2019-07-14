@@ -31,7 +31,7 @@
   left: 0; }
   #channel_bar #channel_listing {
     border-right: 2px solid lightgrey;
-    height: calc(100% - $top_bar_height - 5px);
+    height: calc(100% - $top_bar_height - 5 + px);
     color: #b29fb3; }
   #channel_bar span {
     padding-left: 20px; }
@@ -56,15 +56,18 @@
 
 #top_bar {
   font: 18px;
-  margin-left: 200px;
+  position: fixed;
+  left: 200px;
+  top: 0px;
   background-color: #FFFFFF;
   color: #b29fb3;
   border-bottom: 2px solid lightgrey;
-  height: 40px; }
+  height: 40px;
+  width: calc(100% - 200px); }
   #top_bar #current_logged_in_user {
     font-size: 20px;
-    float: right;
-    margin-right: 20px; }
+    margin-right: 20px;
+    float: right; }
 
 #chat_bar {
   position: fixed;
@@ -107,6 +110,10 @@
   margin: 0% 2.5%;
   width: 95%;
   margin-bottom: 20px; }
+
+#message_board {
+  margin-top: 40px;
+  margin-bottom: 100px; }
 
 @media only screen and (max-width: 750px) {
   .message_body {

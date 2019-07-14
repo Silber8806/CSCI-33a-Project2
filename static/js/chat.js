@@ -4,6 +4,61 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return ( ! /\s/.test(name) && name.length !== 0 )
     }
 
+    function message_board_scroll_bottom() {
+        let current_message_board = document.getElementById("chatroom");
+        window.scrollTo(0,current_message_board.scrollHeight);
+        return 0;
+    }
+
+    function add_channel(name) {
+        if (! current_channels.includes(name)) {
+            current_channels.push(name);
+            new_channel = channel_prototype.cloneNode(true);
+            new_channel.innerHTML = new_channel.innerHTML + name;
+            new_channel.id = "channel-" + name;
+            channel_list.append(new_channel);
+            new_channel.style.display = 'block';
+            socket.emit('submit channel', {'name': name})
+
+            new_channel.onclick = function() {
+                    //closure :D
+                if (name != current_active_channel) {
+                    current_active_channel = name;
+
+                    let listed_channels = document.getElementsByClassName('channel')
+
+                    let i;
+                    for (i = 0; i < listed_channels.length; i++) {
+                      listed_channels[i].style.color = "#b29fb3";
+                    }
+                    this.style.color = "#FFFFFF";
+
+                    let message_board = document.getElementById("message_board");
+
+                    while (message_board.childNodes.length > 1){
+                        message_board.removeChild(message_board.lastChild);
+                    }
+
+                    channel_update_data={'name': current_active_channel}
+                    socket.emit('get channel messages', channel_update_data)
+                }
+            }
+        }
+        return 0
+    }
+
+    function add_message(username, time, content){
+        new_message = message_prototype.cloneNode(true);
+        new_message.removeAttribute("id");
+        new_message.querySelector('.message_content').innerHTML = content;
+        new_message.querySelector('.message_username').innerHTML = username;
+        new_message.querySelector('.message_time').innerHTML = time;
+        message_board.append(new_message);
+        new_message.style.display = 'block';
+        last_message_username=username;
+        return 0
+    }
+
     function get_all_channels()
     {
         var xhttp = new XMLHttpRequest();
@@ -11,8 +66,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 let data = JSON.parse(this.responseText);
+                data.sort(function(a,b){
+                    if(a === "help"){
+                        return -1;
+                    } else if (b === "help") {
+                        return 1;
+                    } else {
+                        return a.toLowerCase().localeCompare(b.toLowerCase())
+                    }
+                });
                 data.forEach(function(channel) {
                     add_channel(channel);
+                    if(channel === "help") {
+                        document.getElementById('channel-help').style.color = "#FFFFFF";
+                        help_channel_data={'name': "help"}
+                        socket.emit('get channel messages', help_channel_data)
+                    }
                 });
             }
         };
@@ -27,6 +96,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (validate_name_has_no_spaces(new_username)) {
                     localStorage.setItem('username',new_username);
                     $('#modal_login_avatar').modal('hide');
+                    set_active_user();
                 }
             };
             $("#modal_login_avatar").modal({backdrop: 'static'});
@@ -41,7 +111,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return 0
     }
 
-    function set_up_channel_ui() {
+    function set_up_socket_listeners() {
         socket.on('announce channel', data => {
             let channel_name = data.name;
             add_channel(channel_name);
@@ -51,8 +121,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             data.forEach(function(message){
                 add_message(message.username,message.time,message.content)
             });
+            message_board_scroll_bottom();
         });
 
+        socket.on('announce message', data => {
+            if ( data.room === current_active_channel){
+                add_message(data.username, data.time, data.content);
+            }
+        });
+    }
+
+    function set_up_channel_ui() {
         add_channels_btn.onclick = function() {
             add_channels_btn.style.display = 'none';
             define_channels_btn.value = '';
@@ -82,79 +161,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     }
 
-    function add_channel(name) {
-        if (! current_channels.includes(name)) {
-            current_channels.push(name);
-            new_channel = channel_prototype.cloneNode(true);
-            new_channel.innerHTML = new_channel.innerHTML + name;
-            new_channel.removeAttribute("id");
-            channel_list.append(new_channel);
-            new_channel.style.display = 'block';
-            socket.emit('submit channel', {'name': name})
-
-            new_channel.onclick = function() {
-                current_active_channel = name;
-
-                let listed_channels = document.getElementsByClassName('channel')
-
-                let i;
-                for (i = 0; i < listed_channels.length; i++) {
-                  listed_channels[i].style.color = "#b29fb3";
-                }
-                this.style.color = "#FFFFFF";
-
-                let message_board = document.getElementById("message_board")
-
-                while (message_board.childNodes.length > 1){
-                    message_board.removeChild(message_board.lastChild);
-                }
-
-                channel_update_data={'name': current_active_channel}
-                socket.emit('get channel messages', channel_update_data)
-            }
-        }
-
-        console.log(current_channels)
-        return 0
-    }
-
-    function add_message(username, time, content){
-        new_message = message_prototype.cloneNode(true);
-        new_message.removeAttribute("id");
-        new_message.querySelector('.message_content').innerHTML = content;
-        new_message.querySelector('.message_username').innerHTML = username;
-        new_message.querySelector('.message_time').innerHTML = time;
-        message_board.append(new_message);
-        new_message.style.display = 'block';
-        last_message_username=username;
-        return 0
-    }
-
-    function send_message(username, time, content) {
-        let message_data = {'username': username,'time': time,'content':content, 'room':current_active_channel};
-        socket.emit('submit message', message_data)
-        return 0
-    }
-
     function set_up_message_box () {
-        socket.on('announce message', data => {
-            if ( data.room === current_active_channel){
-                add_message(data.username, data.time, data.content);
-            }
-        });
-
         message_box.onkeypress = function(event) {
          if (event.keyCode === enter_key) {
                 let current_message =  this.value;
+                let current_message_copy = (' ' + current_message).slice(1);
+
+                if (current_message_copy.trim().length === 0) {
+                    return 1
+                }
                 this.value = '';
                 event.preventDefault();
                 let date_options = { year: 'numeric', month: 'short', day: 'numeric' };
                 let current_date = new Date().toLocaleDateString("en-US",date_options);
                 add_message(current_active_user,current_date,current_message);
                 send_message(current_active_user, current_date, current_message);
+                message_board_scroll_bottom();
                 return 0
             }
         }
+    }
+
+    function send_message(username, time, content) {
+        let message_data = {'username': username,'time': time,'content':content, 'room':current_active_channel};
+        socket.emit('submit message', message_data)
+        return 0
     }
 
     const enter_key = 13;
@@ -173,6 +204,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
 
     socket.on('connect', () => {
+        set_up_socket_listeners();
         get_all_channels();
         sign_up_user();
         set_active_user();

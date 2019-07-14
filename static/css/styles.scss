@@ -57,7 +57,7 @@ $top_bar_height: 40;
         @extend %channel;
 
         border-right: 2px solid $channel_border_color;
-        height: calc(100% - $top_bar_height - 5px);
+        height: calc(100% - $top_bar_height - 5 + px);
         color: $channel_text_color;
     }
 
@@ -94,16 +94,19 @@ $top_bar_height: 40;
 
 #top_bar {
     @include channel_font;
-    margin-left: $channel_width + px;
+    position: fixed;
+    left: $channel_width + px;
+    top: 0px;
     background-color: #FFFFFF;
     color: $channel_text_color;
     border-bottom: 2px solid lightgrey;
     height: $top_bar_height + px;
+    width: calc(100% - #{$channel_width}px);
 
     #current_logged_in_user {
         font-size: 20px;
-        float: right;
         margin-right: 20px;
+        float: right;
     }
 }
 
@@ -161,6 +164,11 @@ $top_bar_height: 40;
     margin: 0% 2.5%;
     width: 95%;
     margin-bottom: 20px;
+}
+
+#message_board {
+    margin-top: $top_bar_height + px;
+    margin-bottom: 100px;
 }
 
 @media only screen and (max-width: 750px) {

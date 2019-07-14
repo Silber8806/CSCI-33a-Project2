@@ -57,7 +57,7 @@ def submit_channel(data):
 def submit_message(data):
     room=data['room']
     channel = hipster_channels[room]
-    if (len(channel) == 10):
+    if (len(channel) == 100):
         channel.pop(0)
     new_message=serialize_message(data['username'],data['time'],data['content'])
     channel.append(new_message)
