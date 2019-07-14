@@ -120,6 +120,10 @@ $top_bar_height: 40;
     margin-top: $top_bar_height + px;
     margin-bottom: 100px;
 
+   #message_board {
+        width: 500px;
+   }
+
     .chat_message {
         @include channel_font;
         margin: 20px 0px;
@@ -144,11 +148,6 @@ $top_bar_height: 40;
                 margin-top: 8px;
                 width: 80px;
                 border-radius: 5%;
-            }
-
-            .message_content {
-                white-space: pre;
-                width: 100px;
             }
         }
     }
