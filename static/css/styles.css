@@ -69,51 +69,47 @@
     margin-right: 20px;
     float: right; }
 
-#chat_bar {
-  position: fixed;
-  bottom: 20px;
-  left: 205px;
-  right: 0px;
-  height: 50px;
-  margin-bottom: 0px; }
-
-#chatroom {
-  font: 18px;
-  margin-left: 200px; }
-
-.chat_message {
-  font: 18px;
-  margin: 20px 0px;
-  width: 80%; }
-
-#avatar {
-  width: 100%; }
-
-.message_header {
-  margin-left: 100px; }
-  .message_header .message_username {
-    font-weight: bolder; }
-
-.message_body {
-  display: flex; }
-  .message_body .message_gutter {
-    flex: 0 0 100px; }
-  .message_body .message_avatar {
-    margin-top: 8px;
-    width: 80px;
-    border-radius: 5%; }
-
 #message_prototype {
   display: none; }
 
-#hipster_chat_message {
-  margin: 0% 2.5%;
-  width: 95%;
-  margin-bottom: 20px; }
-
-#message_board {
+#chatroom {
+  font: 18px;
+  margin-left: 200px;
   margin-top: 40px;
   margin-bottom: 100px; }
+  #chatroom .chat_message {
+    font: 18px;
+    margin: 20px 0px;
+    width: calc(100% - 200px); }
+    #chatroom .chat_message .message_header {
+      margin-left: 100px; }
+      #chatroom .chat_message .message_header .message_username {
+        font-weight: bolder; }
+    #chatroom .chat_message .message_body {
+      display: flex; }
+      #chatroom .chat_message .message_body .message_gutter {
+        flex: 0 0 100px; }
+      #chatroom .chat_message .message_body .message_avatar {
+        margin-top: 8px;
+        width: 80px;
+        border-radius: 5%; }
+      #chatroom .chat_message .message_body .message_content {
+        white-space: pre;
+        width: 100px; }
+  #chatroom #chat_bar {
+    position: fixed;
+    bottom: 20px;
+    left: 205px;
+    right: 0px;
+    height: 50px;
+    margin-bottom: 0px; }
+  #chatroom #hipster_chat_message {
+    margin: 0% 2.5%;
+    width: 95%;
+    margin-bottom: 20px; }
+
+#avatar {
+  width: 100%; }
 
 @media only screen and (max-width: 750px) {
   .message_body {

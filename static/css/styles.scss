@@ -110,65 +110,67 @@ $top_bar_height: 40;
     }
 }
 
-#chat_bar {
-    position:fixed;
-    bottom:20px;
-    left: $channel_width + 5 + px;
-    right:0px;
-    height:50px;
-    margin-bottom:0px;
+#message_prototype {
+    display: none;
 }
 
 #chatroom {
     @include channel_font;
     margin-left: $channel_width + px;
-}
+    margin-top: $top_bar_height + px;
+    margin-bottom: 100px;
 
-.chat_message {
-    @include channel_font;
-    margin: 20px 0px;
-    width: 80%;
+    .chat_message {
+        @include channel_font;
+        margin: 20px 0px;
+        width: calc(100% - #{$channel_width}px);
+
+        .message_header {
+            margin-left: 100px;
+
+            .message_username {
+                font-weight: bolder;
+            }
+        }
+
+        .message_body {
+            display: flex;
+
+            .message_gutter {
+                flex: 0 0 100px;
+            }
+
+            .message_avatar {
+                margin-top: 8px;
+                width: 80px;
+                border-radius: 5%;
+            }
+
+            .message_content {
+                white-space: pre;
+                width: 100px;
+            }
+        }
+    }
+
+    #chat_bar {
+        position:fixed;
+        bottom:20px;
+        left: $channel_width + 5 + px;
+        right:0px;
+        height:50px;
+        margin-bottom:0px;
+    }
+
+    #hipster_chat_message {
+        margin: 0% 2.5%;
+        width: 95%;
+        margin-bottom: 20px;
+    }
 }
 
 #avatar {
     width: 100%;
-}
-
-.message_header {
-    margin-left: 100px;
-
-    .message_username {
-        font-weight: bolder;
-    }
-}
-
-.message_body {
-    display: flex;
-
-    .message_gutter {
-        flex: 0 0 100px;
-    }
-
-    .message_avatar {
-        margin-top: 8px;
-        width: 80px;
-        border-radius: 5%;
-    }
-}
-
-#message_prototype {
-    display: none;
-}
-
-#hipster_chat_message {
-    margin: 0% 2.5%;
-    width: 95%;
-    margin-bottom: 20px;
-}
-
-#message_board {
-    margin-top: $top_bar_height + px;
-    margin-bottom: 100px;
 }
 
 @media only screen and (max-width: 750px) {
