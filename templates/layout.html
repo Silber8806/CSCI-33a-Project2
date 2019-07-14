@@ -60,22 +60,22 @@
         {% block content %}
         <div id="message_board">
             <div id="message_prototype" class="chat_message row">
-                    <div class="message_header">
-                        <span class="message_username">Chris </span>
-                        <span> - </span>
-                        <span class="message_time"> July 4th, 2019</span>
+                <div class="message_header">
+                    <span class="message_username">Chris </span>
+                    <span> - </span>
+                    <span class="message_time"> July 4th, 2019</span>
+                </div>
+                <div class="message_body">
+                    <div class="message_gutter">
+                        <img class="message_avatar" src="{{ url_for('static',filename='images/cool_cat.jpg') }}" alt="chat_avatar">
                     </div>
-                    <div class="message_body">
-                        <div class="message_gutter">
-                            <img class="message_avatar" src="{{ url_for('static',filename='images/cool_cat.jpg') }}" alt="chat_avatar">
-                        </div>
-                        <div class="message_content">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                                labore et dolore magna aliqua.
-                            </p>
-                        </div>
+                    <div class="message_content">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua.
+                        </p>
                     </div>
+                </div>
             </div>
         </div>
         {% endblock %}
