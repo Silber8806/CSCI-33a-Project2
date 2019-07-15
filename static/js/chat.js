@@ -24,15 +24,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     //closure :D
                 if (name != current_active_channel) {
                     current_active_channel = name;
+                    document.getElementById('current_active_channel_name').innerHTML = current_active_channel;
 
                     let listed_channels = document.getElementsByClassName('channel')
-
-                    let i;
-                    for (i = 0; i < listed_channels.length; i++) {
-                      listed_channels[i].style.color = "#b29fb3";
-                    }
-                    this.style.color = "#FFFFFF";
-
                     let message_board = document.getElementById("message_board");
 
                     while (message_board.childNodes.length > 1){
@@ -41,6 +35,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                     channel_update_data={'name': current_active_channel}
                     socket.emit('get channel messages', channel_update_data)
+
+                    unchecked_channels.delete(current_active_channel);
+
+                    if (unchecked_channels.size == 0) {
+                        document.title = document.title.replace("*","");
+                    }
+
+                    this.style.color = "#b29fb3";
                 }
             }
         }
@@ -78,7 +80,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 data.forEach(function(channel) {
                     add_channel(channel);
                     if(channel === "help") {
-                        document.getElementById('channel-help').style.color = "#FFFFFF";
                         help_channel_data={'name': "help"}
                         socket.emit('get channel messages', help_channel_data)
                     }
@@ -127,6 +128,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         socket.on('announce message', data => {
             if ( data.room === current_active_channel){
                 add_message(data.username, data.time, data.content);
+            } else {
+                document.getElementById('channel-' + data.room).style.color = "#FFFFFF";
+                unchecked_channels.add(data.room);
+                console.log(document.title);
+                if (document.title.charAt(0) !== "*") {
+                    document.title = "*" + document.title
+                }
             }
         });
     }
@@ -192,6 +200,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     var current_active_user = 'None';
     var last_message_username = 'None';
     var current_active_channel = 'help';
+    var unchecked_channels = new Set();
     var current_channels = [];
 
     var add_channels_btn = document.querySelector('#add_channel');
