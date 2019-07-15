@@ -64,35 +64,47 @@
   border-bottom: 2px solid lightgrey;
   height: 40px;
   width: calc(100% - 200px); }
+  #top_bar #current_active_channel {
+    padding-left: 10px;
+    font-size: 20px; }
   #top_bar #current_logged_in_user {
     font-size: 20px;
     margin-right: 20px;
     float: right; }
 
 #message_prototype {
-  display: block; }
+  display: none; }
 
 #chatroom {
   font: 18px;
   margin-left: 200px;
   margin-top: 40px;
-  margin-bottom: 100px; }
-  #chatroom .chat_message {
-    font: 18px;
-    margin: 20px 0px; }
-    #chatroom .chat_message .message_header {
-      margin-left: 100px; }
-      #chatroom .chat_message .message_header .message_username {
-        font-weight: bolder; }
-    #chatroom .chat_message .message_body {
-      display: flex;
-      width: 80%; }
-      #chatroom .chat_message .message_body .message_gutter {
-        flex: 0 0 100px; }
-      #chatroom .chat_message .message_body .message_avatar {
-        margin-top: 8px;
-        width: 80px;
-        border-radius: 5%; }
+  margin-bottom: 100px;
+  width: calc(100% - 200px); }
+  #chatroom #message_board {
+    width: 95%; }
+    #chatroom #message_board .chat_message {
+      font: 18px;
+      margin: 20px 0px; }
+      #chatroom #message_board .chat_message .message_header {
+        margin-left: 100px; }
+        #chatroom #message_board .chat_message .message_header .message_username {
+          font-weight: bolder; }
+      #chatroom #message_board .chat_message .message_body {
+        display: flex; }
+        #chatroom #message_board .chat_message .message_body .message_gutter {
+          flex: 0 0 100px;
+          box-sizing: border-box; }
+        #chatroom #message_board .chat_message .message_body .message_avatar {
+          margin-top: 8px;
+          width: 80px;
+          border-radius: 5%;
+          box-sizing: border-box; }
+        #chatroom #message_board .chat_message .message_body .message_content {
+          word-wrap: break-word;
+          box-sizing: border-box;
+          width: calc(100% - 100px);
+          white-space: pre-wrap; }
   #chatroom #chat_bar {
     position: fixed;
     bottom: 20px;
@@ -107,20 +119,5 @@
 
 #avatar {
   width: 100%; }
-
-@media only screen and (max-width: 750px) {
-  .message_body {
-    display: block;
-    width: 80%; }
-
-  .message_header {
-    margin-left: 22px;
-    width: 80%;
-    text-align: center; }
-
-  .message_avatar {
-    margin: 9px 8px 1px 0px;
-    width: 80px;
-    float: left; } }
 
 /*# sourceMappingURL=styles.css.map */
