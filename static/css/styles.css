@@ -64,9 +64,6 @@
   border-bottom: 2px solid lightgrey;
   height: 40px;
   width: calc(100% - 200px); }
-  #top_bar #current_active_channel {
-    padding-left: 10px;
-    font-size: 20px; }
   #top_bar #current_logged_in_user {
     font-size: 20px;
     margin-right: 20px;
@@ -103,8 +100,7 @@
         #chatroom #message_board .chat_message .message_body .message_content {
           word-wrap: break-word;
           box-sizing: border-box;
-          width: calc(100% - 100px);
-          white-space: pre-wrap; }
+          width: calc(100% - 100px); }
   #chatroom #chat_bar {
     position: fixed;
     bottom: 20px;

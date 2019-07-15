@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return 0;
     }
 
+    function create_adorable_io_avatar(name){
+        let avatar_url='https://api.adorable.io/avatars/640/' + name + '@hipster.png'
+        return avatar_url
+    }
+
     function add_channel(name) {
         if (! current_channels.includes(name)) {
             current_channels.push(name);
@@ -55,6 +60,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         new_message.querySelector('.message_content').innerHTML = content;
         new_message.querySelector('.message_username').innerHTML = username;
         new_message.querySelector('.message_time').innerHTML = time;
+        new_message.querySelector('.message_avatar').src = create_adorable_io_avatar(username);
         message_board.append(new_message);
         new_message.style.display = 'inline';
         last_message_username=username;
@@ -180,8 +186,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
                 this.value = '';
                 event.preventDefault();
-                let date_options = { year: 'numeric', month: 'short', day: 'numeric' };
-                let current_date = new Date().toLocaleDateString("en-US",date_options);
+                let date_options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit',minute: '2-digit', second: '2-digit'};
+                let current_date = new Date().toLocaleString("en-US",date_options);
                 add_message(current_active_user,current_date,current_message);
                 send_message(current_active_user, current_date, current_message);
                 message_board_scroll_bottom();

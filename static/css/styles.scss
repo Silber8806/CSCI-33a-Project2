@@ -103,11 +103,6 @@ $top_bar_height: 40;
     height: $top_bar_height + px;
     width: calc(100% - #{$channel_width}px);
 
-    #current_active_channel {
-        padding-left: 10px;
-        font-size: 20px;
-    }
-
     #current_logged_in_user {
         font-size: 20px;
         margin-right: 20px;
@@ -160,7 +155,6 @@ $top_bar_height: 40;
                    word-wrap: break-word;
                    box-sizing: border-box;
                    width: calc(100% - 100px);
-                   white-space: pre-wrap;
                 }
             }
         }
