@@ -109,6 +109,11 @@ $top_bar_height: 40;
         margin-right: 20px;
         float: right;
     }
+
+    #current_active_channel {
+        font-size: 20px;
+        margin-left: 10px;
+    }
 }
 
 #message_prototype {
@@ -163,18 +168,23 @@ $top_bar_height: 40;
 
     #chat_bar {
         position:fixed;
-        bottom:20px;
-        left: $channel_width + 5 + px;
+        bottom:0px;
+        left: $channel_width + px;
         right:0px;
         height:50px;
-        margin-bottom:0px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        background-color: #FFFFFF;
+
+        #hipster_chat_message {
+            margin: 0% 2.5%;
+            width: 95%;
+            height: 40px;
+            margin-bottom: 50px;
+        }
     }
 
-    #hipster_chat_message {
-        margin: 0% 2.5%;
-        width: 95%;
-        margin-bottom: 20px;
-    }
+
 }
 
 #avatar {

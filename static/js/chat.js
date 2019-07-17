@@ -150,7 +150,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         socket.on('announce message', data => {
             if ( data.room === current_active_channel){
-                add_message(data.username, data.time, data.content);
+                let current_message_board = document.getElementById("message_board");
+                console.log(document.documentElement.scrollHeight)
+                console.log(current_message_board.scrollHeight)
+                if (document.documentElement.scrollHeight === current_message_board.scrollHeight) {
+                    add_message(data.username, data.time, data.content);
+                    message_board_scroll_bottom();
+                } else {
+                    add_message(data.username, data.time, data.content);
+                }
             } else {
                 new_message_received_channel = document.getElementById('channel-' + data.room)
                 new_message_received_channel.style.color = "#FFFFFF";

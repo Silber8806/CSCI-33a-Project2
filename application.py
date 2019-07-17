@@ -69,4 +69,4 @@ def get_channel_updates(data):
     channel_name = data['name']
     if (channel_name in hipster_channels):
         latest_messages = hipster_channels[channel_name]
-    emit("announce channel updates", latest_messages)
+        emit("announce channel updates", latest_messages)
