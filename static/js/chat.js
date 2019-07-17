@@ -95,6 +95,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     if(channel === "help") {
                         help_channel_data={'name': "help"}
                         socket.emit('get channel messages', help_channel_data)
+                        help_channel = document.querySelector('#channel-help')
+                        help_channel.style.background = '#1164A3';
+                        help_channel.style.color = "#FFFFFF";
+                        help_channel.style.fontWeight = 400;
                     }
                 });
             }
