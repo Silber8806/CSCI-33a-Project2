@@ -6,7 +6,8 @@
 */
 #brand_box, #channel_bar, #channel_bar #channel_listing {
   width: 200px;
-  background-color: #3F0E40; }
+  background-color: #3F0E40;
+  box-sizing: border-box; }
 
 /*
     CSS

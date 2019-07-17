@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 
     function validate_name_has_no_spaces(name) {
-        return ( ! /\s/.test(name) && name.length !== 0 )
+        return ( /^[a-zA-Z0-9-_]+$/.test(name) && name.length !== 0 )
     }
 
     function message_board_scroll_bottom() {
@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
             new_channel.onclick = function() {
                     //closure :D
                 if (name != current_active_channel) {
+
+                    former_channel=document.getElementById('channel-'+current_active_channel);
+                    former_channel.style.background = '#3F0E40';
+                    former_channel.style.color = '#b29fb3'
+
                     current_active_channel = name;
                     document.getElementById('current_active_channel_name').innerHTML = current_active_channel;
 
@@ -47,7 +52,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         document.title = document.title.replace("*","");
                     }
 
-                    this.style.color = "#b29fb3";
+                    this.style.background = '#1164A3';
+                    this.style.color = "#FFFFFF";
+                    this.style.fontWeight = 400;
                 }
             }
         }
@@ -98,6 +105,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function sign_up_user() {
         if (localStorage.getItem("username") === null) {
+
+            document.querySelector("#modal_login_avatar_name").onkeypress = function(event){
+                let keypress = String.fromCharCode(event.keyCode);
+                if (/^[a-zA-Z0-9-_]+$/.test(keypress)) {
+                    return true;
+                }
+                event.preventDefault();
+                return false;
+            };
+
             document.querySelector("#modal_login_avatar_btn").onclick = function(){
                 let new_username = document.querySelector("#modal_login_avatar_name").value;
                 if (validate_name_has_no_spaces(new_username)) {
@@ -135,7 +152,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             if ( data.room === current_active_channel){
                 add_message(data.username, data.time, data.content);
             } else {
-                document.getElementById('channel-' + data.room).style.color = "#FFFFFF";
+                new_message_received_channel = document.getElementById('channel-' + data.room)
+                new_message_received_channel.style.color = "#FFFFFF";
+                new_message_received_channel.style.fontWeight = 700;
                 unchecked_channels.add(data.room);
                 console.log(document.title);
                 if (document.title.charAt(0) !== "*") {
@@ -154,6 +173,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
 
         define_channels_btn.onkeypress = function(event) {
+            let keypress = String.fromCharCode(event.keyCode);
             if (event.keyCode === enter_key) {
                 let channel_name =  this.value;
                 if (validate_name_has_no_spaces(channel_name)) {
@@ -162,7 +182,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     add_channel(channel_name);
                 }
                 event.preventDefault();
+            } else if (/^[a-zA-Z0-9-_]+$/.test(keypress)) {
+                return true;
             }
+
+            event.preventDefault();
+            return false;
         }
 
         define_channels_btn.onblur = function(event) {

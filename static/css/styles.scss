@@ -21,6 +21,7 @@ $top_bar_height: 40;
 %channel {
      width: $channel_width + px;
      background-color: $channel_background_color;
+     box-sizing: border-box;
 }
 
 /*
