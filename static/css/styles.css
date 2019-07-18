@@ -91,6 +91,11 @@
         margin-left: 100px; }
         #chatroom #message_board .chat_message .message_header .message_username {
           font-weight: bolder; }
+        #chatroom #message_board .chat_message .message_header .message_delete {
+          float: right;
+          border-radius: 50%;
+          background-color: red;
+          color: white; }
       #chatroom #message_board .chat_message .message_body {
         display: flex; }
         #chatroom #message_board .chat_message .message_body .message_gutter {

@@ -140,6 +140,13 @@ $top_bar_height: 40;
                 .message_username {
                     font-weight: bolder;
                 }
+
+                .message_delete {
+                    float: right;
+                    border-radius: 50%;
+                    background-color: red;
+                    color: white;
+                }
             }
 
             .message_body {
