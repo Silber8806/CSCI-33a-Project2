@@ -14,6 +14,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return  username + '-' + time + '-' + Math.random().toString(36).substr(2, 9);
     }
 
+    function get_unix_time(){
+        return (new Date).getTime()/1000;
+    }
+
+    function format_unix_time(unix_time) {
+        let unformatted_date = new Date( unix_time * 1000 );
+        let date_options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit',minute: '2-digit', second: '2-digit'};
+        let formatted_date = new Date().toLocaleString("en-US",date_options);
+        return formatted_date;
+    }
+
     function create_adorable_io_avatar(name){
         let avatar_url='https://api.adorable.io/avatars/640/' + name + '@hipster.png'
         return avatar_url
@@ -72,7 +83,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         new_message.id = new_message_id;
         new_message.querySelector('.message_content').innerHTML = content;
         new_message.querySelector('.message_username').innerHTML = username;
-        new_message.querySelector('.message_time').innerHTML = time;
+        new_message.querySelector('.message_time').innerHTML = format_unix_time(time);
         new_message.querySelector('.message_avatar').src = create_adorable_io_avatar(username);
         message_board.append(new_message);
         new_message.style.display = 'inline';
@@ -237,8 +248,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
                 this.value = '';
                 event.preventDefault();
-                let date_options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit',minute: '2-digit', second: '2-digit'};
-                let current_date = new Date().toLocaleString("en-US",date_options);
+                let current_date = get_unix_time();
                 add_message(current_active_user,current_date,current_message);
                 send_message(current_active_user, current_date, current_message);
                 message_board_scroll_bottom();
