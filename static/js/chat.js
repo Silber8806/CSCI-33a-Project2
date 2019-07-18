@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return 0;
     }
 
+    function create_message_id(username, time) {
+        return  username + '-' + time + '-' + Math.random().toString(36).substr(2, 9);
+    }
+
     function create_adorable_io_avatar(name){
         let avatar_url='https://api.adorable.io/avatars/640/' + name + '@hipster.png'
         return avatar_url
@@ -63,7 +67,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function add_message(username, time, content){
         new_message = message_prototype.cloneNode(true);
+        let new_message_id = create_message_id(username,time);
         new_message.removeAttribute("id");
+        new_message.id = new_message_id;
         new_message.querySelector('.message_content').innerHTML = content;
         new_message.querySelector('.message_username').innerHTML = username;
         new_message.querySelector('.message_time').innerHTML = time;
@@ -71,6 +77,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
         message_board.append(new_message);
         new_message.style.display = 'inline';
         last_message_username=username;
+
+        new_message_remove_button = new_message.querySelector('message_delete');
+        if (username === current_active_user){
+            new_message_remove_button.onclick = function(){
+                new_message_remove_button.parentNode.parentNode.remove();
+            }
+        } else {
+            new_message_remove_button.remove();
+        }
+
         return 0
     }
 
