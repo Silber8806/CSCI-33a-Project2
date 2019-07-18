@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     function create_message_id(username, time) {
-        return  username + '-' + time + '-' + Math.random().toString(36).substr(2, 9);
+        return  username + '_' + time;
     }
 
     function get_unix_time(){
