@@ -195,7 +195,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 new_message_received_channel.style.color = "#FFFFFF";
                 new_message_received_channel.style.fontWeight = 700;
                 unchecked_channels.add(data.room);
-                console.log(document.title);
                 if (document.title.charAt(0) !== "*") {
                     document.title = "*" + document.title
                 }
@@ -207,9 +206,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 let other_message_id = "#" + data.username + '_' + data.time;
                 let other_message = document.getElementById(data.username + '_' + data.time);
                 let remove_message = other_message !== null;
-                console.log(data);
                 if (remove_message) {
-                    console.log("found it!")
                     other_message.remove();
                 }
             }
