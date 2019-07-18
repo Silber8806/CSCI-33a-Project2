@@ -78,10 +78,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         new_message.style.display = 'inline';
         last_message_username=username;
 
-        new_message_remove_button = new_message.querySelector('message_delete');
+        new_message_remove_button = new_message.querySelector('.message_delete');
         if (username === current_active_user){
             new_message_remove_button.onclick = function(){
-                new_message_remove_button.parentNode.parentNode.remove();
+                this.parentNode.parentNode.remove();
             }
         } else {
             new_message_remove_button.remove();
