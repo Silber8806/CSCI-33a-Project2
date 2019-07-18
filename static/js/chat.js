@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 let current_message_board = document.getElementById("message_board");
                 console.log(document.documentElement.scrollHeight)
                 console.log(current_message_board.scrollHeight)
-                if (document.documentElement.scrollHeight === current_message_board.scrollHeight) {
+                if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
                     add_message(data.username, data.time, data.content);
                     message_board_scroll_bottom();
                 } else {
