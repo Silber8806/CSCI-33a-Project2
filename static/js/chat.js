@@ -93,6 +93,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (username === current_active_user){
             new_message_remove_button.onclick = function(){
                 this.parentNode.parentNode.remove();
+                let delete_message = {'username': username,'time': time, 'room': current_active_channel};
+                socket.emit('delete message', delete_message)
             }
         } else {
             new_message_remove_button.remove();
@@ -196,6 +198,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 console.log(document.title);
                 if (document.title.charAt(0) !== "*") {
                     document.title = "*" + document.title
+                }
+            }
+        });
+
+         socket.on('announce delete message', data => {
+            if ( data.username !== current_active_user) {
+                let other_message_id = "#" + data.username + '_' + data.time;
+                let other_message = document.getElementById(data.username + '_' + data.time);
+                let remove_message = other_message !== null;
+                console.log(data);
+                if (remove_message) {
+                    console.log("found it!")
+                    other_message.remove();
                 }
             }
         });

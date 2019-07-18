@@ -70,3 +70,14 @@ def get_channel_updates(data):
     if (channel_name in hipster_channels):
         latest_messages = hipster_channels[channel_name]
         emit("announce channel updates", latest_messages)
+
+
+@socketio.on("delete message")
+def delete_message(data):
+    room = data['room']
+    channel = hipster_channels[room]
+    for message_id, message in enumerate(channel):
+        if message['username'] == data['username'] and message['time'] == data['time']:
+            del channel[message_id]
+            emit("announce delete message", data, broadcast=True, include_self=False,room=room)
+            break
