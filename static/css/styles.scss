@@ -130,9 +130,20 @@ $top_bar_height: 40;
     #message_board {
         width: 95%;
 
+        .chat_message> * {
+            animation-name: hide;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-play-state: paused;
+        }
+
         .chat_message {
             @include channel_font;
             margin: 20px 0px;
+            animation-name: hide;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-play-state: paused;
 
             .message_header {
                 margin-left: 100px;
@@ -196,4 +207,19 @@ $top_bar_height: 40;
 
 #avatar {
     width: 100%;
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+        height: 100%;
+    }
+    75% {
+        opacity: 0;
+        height: 100%;
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+    }
 }

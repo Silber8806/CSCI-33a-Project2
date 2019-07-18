@@ -76,6 +76,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return 0
     }
 
+    function remove_post_with_animation(post){
+        if(post.classList.contains('hide')) {
+            let post_content = Array.prototype.slice.apply(post.querySelectorAll("*"));
+            post_content.forEach((post_element) => {
+                post_element.style.animationPlayState = 'running';
+            });
+            post.style.animationPlayState = 'running';
+            post.addEventListener('animationend', () =>  {
+                post.remove();
+            });
+        } else {
+            post.remove();
+        }
+        return 0
+    }
+
+
     function add_message(username, time, content){
         new_message = message_prototype.cloneNode(true);
         let new_message_id = create_message_id(username,time);
@@ -91,8 +108,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         new_message_remove_button = new_message.querySelector('.message_delete');
         if (username === current_active_user){
-            new_message_remove_button.onclick = function(){
-                this.parentNode.parentNode.remove();
+            new_message_remove_button.onclick = function(event){
+                let message_post = this.parentNode.parentNode;
+                remove_post_with_animation(message_post);
                 let delete_message = {'username': username,'time': time, 'room': current_active_channel};
                 socket.emit('delete message', delete_message)
             }
@@ -207,7 +225,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 let other_message = document.getElementById(data.username + '_' + data.time);
                 let remove_message = other_message !== null;
                 if (remove_message) {
-                    other_message.remove();
+                    remove_post_with_animation(other_message);
                 }
             }
         });

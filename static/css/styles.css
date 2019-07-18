@@ -84,9 +84,18 @@
   width: calc(100% - 200px); }
   #chatroom #message_board {
     width: 95%; }
+    #chatroom #message_board .chat_message > * {
+      animation-name: hide;
+      animation-duration: 2s;
+      animation-fill-mode: forwards;
+      animation-play-state: paused; }
     #chatroom #message_board .chat_message {
       font: 18px;
-      margin: 20px 0px; }
+      margin: 20px 0px;
+      animation-name: hide;
+      animation-duration: 2s;
+      animation-fill-mode: forwards;
+      animation-play-state: paused; }
       #chatroom #message_board .chat_message .message_header {
         margin-left: 100px; }
         #chatroom #message_board .chat_message .message_header .message_username {
@@ -127,5 +136,16 @@
 
 #avatar {
   width: 100%; }
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+    height: 100%; }
+  75% {
+    opacity: 0;
+    height: 100%; }
+  100% {
+    opacity: 0;
+    height: 0px; } }
 
 /*# sourceMappingURL=styles.css.map */
