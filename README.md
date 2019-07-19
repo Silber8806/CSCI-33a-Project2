@@ -13,7 +13,7 @@ Web Programming with Python and JavaScript
 
 3. flask run --no-reload
 
-## Website Layout
+## Website Layout 
 
 The website is a chat application (SPA) that mimics features from slack including:
 * background-color and color scheme: purple, grey and white.
@@ -71,6 +71,10 @@ worked.
 6. I might get rid of index.html and rename the layouts as  index.html.  It's a single page app with no other
 webpages.
 7. scss might need some minor refactors...add a few variables etc.
+
+## NOTE:
+
+Python and HTML code was run through a formatter and should be consistent.
 
 ## Files 
 The below will show you the output of the directory as a tree structure.  I've added comments about files below:

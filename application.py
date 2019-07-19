@@ -14,6 +14,7 @@ socketio = SocketIO(app)
 
 hipster_channels = {'help': []}
 
+
 def serialize_message(name, timestamp, content):
     message = {}
     message['username'] = name
