@@ -100,7 +100,6 @@ C:.
 │   │
 │   ├───images
 │   │       cool_cat.jpg -> cool cat photo
-│   │       delete_message.png -> delete button used in app
 │   │       happy-java.png -> The icon used in the title bar
 │   │
 │   └───js
@@ -112,9 +111,7 @@ C:.
 
 Note I trimmed the output of the command to not include temporary files.
 
-
-## Some Notes:
-
-#### CSS and JavaScript Notes
-
 ## sources
+* ccol_cat.jpg -> https://wallpaperaccess.com/cool-cat
+* happy-java.png -> http://www.pngall.com/coffee-png/download/5241
+* Most of the app -> Slack
