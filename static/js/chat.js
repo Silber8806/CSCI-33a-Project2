@@ -1,19 +1,5 @@
 document.addEventListener('DOMContentLoaded', (event) => {
 
-    function validate_name_has_no_spaces(name) {
-        return ( /^[a-zA-Z0-9-_]+$/.test(name) && name.length !== 0 )
-    }
-
-    function message_board_scroll_bottom() {
-        let current_message_board = document.getElementById("chatroom");
-        window.scrollTo(0,current_message_board.scrollHeight);
-        return 0;
-    }
-
-    function create_message_id(username, time) {
-        return  username + '_' + time;
-    }
-
     function get_unix_time(){
         return (new Date).getTime()/1000;
     }
@@ -25,19 +11,33 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return formatted_date;
     }
 
+    function validate_name_has_no_spaces(name) {
+        return ( /^[a-zA-Z0-9-_]+$/.test(name) && name.length !== 0 )
+    }
+
+    function message_board_scroll_bottom() {
+        window.scrollTo(0,document.getElementById("chatroom").scrollHeight);
+        return 0;
+    }
+
+    function create_message_id(username, time) {
+        return  username + '_' + time;
+    }
+
     function create_adorable_io_avatar(name){
-        let avatar_url='https://api.adorable.io/avatars/640/' + name + '@hipster.png'
-        return avatar_url
+        return 'https://api.adorable.io/avatars/640/' + name + '@hipster.png'
     }
 
     function add_channel(name) {
         if (! current_channels.includes(name)) {
             current_channels.push(name);
+
             new_channel = channel_prototype.cloneNode(true);
             new_channel.innerHTML = new_channel.innerHTML + name;
             new_channel.id = "channel-" + name;
             channel_list.append(new_channel);
             new_channel.style.display = 'block';
+
             socket.emit('submit channel', {'name': name})
 
             new_channel.onclick = function() {
@@ -51,15 +51,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     current_active_channel = name;
                     document.getElementById('current_active_channel_name').innerHTML = current_active_channel;
 
-                    let listed_channels = document.getElementsByClassName('channel')
-                    let message_board = document.getElementById("message_board");
+                    let listed_channels = document.getElementsByClassName('channel');
 
                     while (message_board.childNodes.length > 1){
                         message_board.removeChild(message_board.lastChild);
                     }
 
-                    channel_update_data={'name': current_active_channel}
-                    socket.emit('get channel messages', channel_update_data)
+                    socket.emit('get channel messages', {'name': current_active_channel})
 
                     unchecked_channels.delete(current_active_channel);
 
@@ -76,28 +74,34 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return 0
     }
 
+    function send_message(username, time, content) {
+        socket.emit('submit message', {'username': username,'time': time,'content':content, 'room':current_active_channel})
+        return 0
+    }
+
     function remove_post_with_animation(post){
         if(post.classList.contains('hide')) {
             let post_content = Array.prototype.slice.apply(post.querySelectorAll("*"));
+
             post_content.forEach((post_element) => {
                 post_element.style.animationPlayState = 'running';
             });
+
             post.style.animationPlayState = 'running';
             post.addEventListener('animationend', () =>  {
                 post.remove();
             });
+
         } else {
             post.remove();
         }
         return 0
     }
 
-
     function add_message(username, time, content){
         new_message = message_prototype.cloneNode(true);
-        let new_message_id = create_message_id(username,time);
         new_message.removeAttribute("id");
-        new_message.id = new_message_id;
+        new_message.id = create_message_id(username,time);
         new_message.querySelector('.message_content').innerHTML = content;
         new_message.querySelector('.message_username').innerHTML = username;
         new_message.querySelector('.message_time').innerHTML = format_unix_time(time);
@@ -106,13 +110,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         new_message.style.display = 'inline';
         last_message_username=username;
 
-        new_message_remove_button = new_message.querySelector('.message_delete');
+        let new_message_remove_button = new_message.querySelector('.message_delete');
         if (username === current_active_user){
             new_message_remove_button.onclick = function(event){
                 let message_post = this.parentNode.parentNode;
                 remove_post_with_animation(message_post);
-                let delete_message = {'username': username,'time': time, 'room': current_active_channel};
-                socket.emit('delete message', delete_message)
+                socket.emit('delete message', {'username': username,'time': time, 'room': current_active_channel})
             }
         } else {
             new_message_remove_button.remove();
@@ -188,8 +191,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function set_up_socket_listeners() {
         socket.on('announce channel', data => {
-            let channel_name = data.name;
-            add_channel(channel_name);
+            add_channel(data.name);
         });
 
         socket.on('announce channel updates', data => {
@@ -221,10 +223,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
          socket.on('announce delete message', data => {
             if ( data.username !== current_active_user) {
-                let other_message_id = "#" + data.username + '_' + data.time;
                 let other_message = document.getElementById(data.username + '_' + data.time);
-                let remove_message = other_message !== null;
-                if (remove_message) {
+                if (other_message !== null) {
                     remove_post_with_animation(other_message);
                 }
             }
@@ -285,12 +285,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 return 0
             }
         }
-    }
-
-    function send_message(username, time, content) {
-        let message_data = {'username': username,'time': time,'content':content, 'room':current_active_channel};
-        socket.emit('submit message', message_data)
-        return 0
     }
 
     const enter_key = 13;

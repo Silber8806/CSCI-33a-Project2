@@ -14,7 +14,6 @@ socketio = SocketIO(app)
 
 hipster_channels = {'help': []}
 
-
 def serialize_message(name, timestamp, content):
     message = {}
     message['username'] = name
@@ -25,8 +24,7 @@ def serialize_message(name, timestamp, content):
 
 @app.route('/<path:page>')
 def all_pages(page):
-    return redirect(url_for('index'),
-                    code=302)
+    return redirect(url_for('index'), 302)
 
 
 @app.route("/")

@@ -55,18 +55,22 @@ highlighting the channel and adding a star to the title bar.
 1. I completed the entire app before Wednesday and hadn't heard about the handlebar templates.  By this time,
 I had decided to just clone a hidden element for use with adding channels and messages.  My next step would
 be to convert: messages, channel and login form to use handlebar templates.
-2. Channel currently sorts when you re-open the app.  I wanted to implement a binary search to insert the new
+2. I should add some error messages.  Originally, I followed slacks example where they just wouldn't let you type
+characters for channels or usernames that they didn't support.  It would be worth adding flash mentioning for
+events in general (like someone logged in etc).
+3. Channel currently sorts when you re-open the app.  I wanted to implement a binary search to insert the new
 channel into the channels section.  That way it's always sorted by default.  I decided to work on new features
 instead of pursuing this.
-3. The Flask app stores everything as a dictionary of lists.  If I wanted to add more features, I would have to
+4. The Flask app stores everything as a dictionary of lists.  If I wanted to add more features, I would have to
 optimize this.  It started becoming a pain point when I implemented deletes.  I realized I'd be better served with
 a unique set of message IDs as well.
-4. I think at some point, I would add Flask events for connect and disconnect.  Add a users logged in and 
+5. I think at some point, I would add Flask events for connect and disconnect.  Add a users logged in and 
 logged out information to certain channels (this person left channel etc).  This would slowly lead to user-to-user
 direct messaging.  This would have been a much larger project if I added this and felt the above personal touches
 worked.
-5. I might get rid of index.html and rename the layouts as  index.html.  It's a single page app with no other
+6. I might get rid of index.html and rename the layouts as  index.html.  It's a single page app with no other
 webpages.
+7. scss might need some minor refactors...add a few variables etc.
 
 ## Files 
 The below will show you the output of the directory as a tree structure.  I've added comments about files below:
@@ -96,18 +100,13 @@ C:.
 │   │       happy-java.png -> The icon used in the title bar
 │   │
 │   └───js
-│           chat.js -> the actual chat app, a JavaScript file
+│           chat.js -> the actual chat app, a JavaScript file that defines all the behavior
 ├───templates
-│       404.html -> not used
-│       500.html -> not used
-│       index.html -> used only to change title attribute for index page
-│       layout.html -> most of the chat app components.
+│       index.html -> The entire app has been refactored into this single page
 
 ```
 
 Note I trimmed the output of the command to not include temporary files.
-
-
 
 
 ## Some Notes:
