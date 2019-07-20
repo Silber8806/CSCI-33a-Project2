@@ -68,8 +68,8 @@ a unique set of message IDs as well.
 logged out information to certain channels (this person left channel etc).  This would slowly lead to user-to-user
 direct messaging.  This would have been a much larger project if I added this and felt the above personal touches
 worked.
-6. I might get rid of index.html and rename the layouts as  index.html.  It's a single page app with no other
-webpages.
+6. A nice added feature would be to use the History API to add URLS specific to channels.  At the moment, I want
+to keep it relatively simple with just a functional app.
 7. scss might need some minor refactors...add a few variables etc.
 
 ## NOTE:
