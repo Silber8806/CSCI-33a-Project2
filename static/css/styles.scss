@@ -1,0 +1,225 @@
+/*
+    Variables
+*/
+
+$channel_width: 200;
+$channel_text_color: rgb(178,159,179);
+$channel_background_color: #3F0E40;
+$channel_border_color: lightgrey;
+$channel_font: 18;
+$channel_item: 20;
+$top_bar_height: 40;
+
+/*
+    Classes
+*/
+
+@mixin channel_font {
+  font: 18px;
+}
+
+%channel {
+     width: $channel_width + px;
+     background-color: $channel_background_color;
+     box-sizing: border-box;
+}
+
+/*
+    CSS
+*/
+
+#brand_box {
+    @extend %channel;
+
+    border-right: 2px solid $channel_border_color;
+    height: $top_bar_height + px;
+    border-right: #FFFF 1px solid;
+
+    #brand {
+        font-size: 20px;
+        font-style: italic;
+        border-bottom: 2px solid maroon;
+        color: $channel_text_color;
+    }
+}
+
+#channel_bar {
+  @extend %channel;
+  @include channel_font;
+
+  border-right: 2px solid $channel_border_color;
+  position: fixed;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+  #channel_listing {
+        @extend %channel;
+
+        border-right: 2px solid $channel_border_color;
+        height: calc(100% - $top_bar_height - 5 + px);
+        color: $channel_text_color;
+    }
+
+    span {
+        padding-left: $channel_item + px;
+    }
+
+    .hip_channel {
+        margin-left: $channel_item + px;
+        background-color: $channel_background_color;
+        color: $channel_text_color;
+        border: none;
+    }
+
+    #add_channel {
+        background-color: $channel_background_color;
+        color: $channel_text_color;
+        border: none;
+    }
+
+    #define_channel {
+        width: $channel_width - 50 + px;
+        background-color: $channel_background_color;
+        border: none;
+        border-color: 1px solid lightblue;
+        color: #FFFFFF;
+        display: none;
+    }
+
+    #channel_prototype {
+        display: none;
+    }
+}
+
+#top_bar {
+    @include channel_font;
+    position: fixed;
+    left: $channel_width + px;
+    top: 0px;
+    background-color: #FFFFFF;
+    color: $channel_text_color;
+    border-bottom: 2px solid lightgrey;
+    height: $top_bar_height + px;
+    width: calc(100% - #{$channel_width}px);
+
+    #current_logged_in_user {
+        font-size: 20px;
+        margin-right: 20px;
+        float: right;
+    }
+
+    #current_active_channel {
+        font-size: 20px;
+        margin-left: 10px;
+    }
+}
+
+#message_prototype {
+    display: none;
+}
+
+#chatroom {
+    @include channel_font;
+    margin-left: $channel_width + px;
+    margin-top: $top_bar_height + px;
+    margin-bottom: 100px;
+    width: calc(100% - #{$channel_width}px);
+
+    #message_board {
+        width: 95%;
+
+        .chat_message> * {
+            animation-name: hide;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-play-state: paused;
+        }
+
+        .chat_message {
+            @include channel_font;
+            margin: 20px 0px;
+            animation-name: hide;
+            animation-duration: 2s;
+            animation-fill-mode: forwards;
+            animation-play-state: paused;
+
+            .message_header {
+                margin-left: 100px;
+
+                .message_username {
+                    font-weight: bolder;
+                }
+
+                .message_delete {
+                    float: right;
+                    border-radius: 50%;
+                    background-color: red;
+                    color: white;
+                }
+            }
+
+            .message_body {
+                display: flex;
+
+                .message_gutter {
+                    flex: 0 0 100px;
+                    box-sizing: border-box;
+                }
+
+                .message_avatar {
+                    margin-top: 8px;
+                    width: 80px;
+                    border-radius: 5%;
+                    box-sizing: border-box;
+                }
+
+                .message_content {
+                   word-wrap: break-word;
+                   box-sizing: border-box;
+                   width: calc(100% - 100px);
+                }
+            }
+        }
+    }
+
+    #chat_bar {
+        position:fixed;
+        bottom:0px;
+        left: $channel_width + px;
+        right:0px;
+        height:50px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        background-color: #FFFFFF;
+
+        #hipster_chat_message {
+            margin: 0% 2.5%;
+            width: 95%;
+            height: 40px;
+            margin-bottom: 50px;
+        }
+    }
+
+
+}
+
+#avatar {
+    width: 100%;
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+        height: 100%;
+    }
+    75% {
+        opacity: 0;
+        height: 100%;
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+    }
+}
